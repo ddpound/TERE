@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>게시글 수정</h1>
+<form method="POST" enctype="multipart/form-data" action="{% url 'community:post_modify' first_identifier second_identifier third_identifier %}" novalidate>  
+  {% csrf_token %}
+  제목 : {{ form.m_title }}
+  </br>
+  <br>
+  내용 : {{ form.m_content }}
+  <br><br>
+  파일 설명: {{ fform.desc}} {{ fform.file}}
+  <br>
+  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" value="수정">
+  <br>
+</form>
+{% endblock %}

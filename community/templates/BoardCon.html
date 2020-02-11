@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> 게시판</h1>
+
+{% if object_list %}
+        <table border ="1">
+            <tr>
+                <th><center>게시물 번호</center></th>
+                <th><center>게시글 제목</center></th>
+                <th><center>작성자</center></th>
+                <th><center>작성시간</center></th>
+            </tr>
+                {% for category in object_list %}
+                    <tr>
+                        <td><center>{{category.identifier}}</center></td>
+                        <td>&nbsp;<a href="{% url 'community:board_message' first_identifier second_identifier category.identifier %}">{{ category.m_title}}</a>&nbsp;</td>
+                        <td><center>&nbsp;{{ category.m_WriterName}}&nbsp;</center></td>
+                        <td><center>&nbsp;{{category.m_update_date|date:"Y-m-d h:s A"}}&nbsp;</center></td>
+                    </tr>
+                {% endfor %}
+            </table>  
+{% else %}
+    <p>No Board Contents!!!</p>
+{% endif %}
+<form action="{{ request.path }}", method="POST">  
+        {% csrf_token %}
+            {{sform.select}}&nbsp;{{sform.s_content}}
+<input type="submit" value="검색"><br>
+<a href="{% url 'community:post_write' first_identifier second_identifier %}">글쓰기</a>&nbsp;
+</form>
+
+{% endblock %}

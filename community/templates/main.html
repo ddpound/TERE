@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<center><h1><a href="{% url 'community:board' %}">게시판</a>&nbsp&nbsp&nbsp<a href="{% url 'chat:index' %}">채팅방</a></h1></center>
+</br>
+</br>
+</br>
+</br>
+{%if Name %}
+    {{Name}}님 환영합니다.</br>
+    <a href="{% url 'community:logout' %}">로그아웃</a></br>
+    <a href="{% url 'community:change' %}">비밀번호 변경</a></br>
+    <a href="http://localhost:8000/admin">어드민</a>
+{% else %}
+    <a href="{% url 'community:login' %}">로그인</a></br>
+    <a href="{% url 'community:signup_select' %}">회원가입</a></br>
+    <a href="http://localhost:8000/admin">어드민</a>
+{% endif %}
+{% endblock %}

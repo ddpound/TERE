@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2> 게시판</h2>
+
+{% if object_list %}
+
+    {% for category in object_list %}
+    <table border ="1">
+            <tr>
+                <td style="background-color: skyblue;
+                color: white;">게시글 번호</td>
+                <td style="background-color: skyblue;
+                color: white;">{{category.identifier}}</td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td>{{category.m_title}}</td>
+            </tr>
+            <tr>
+                <td>
+                    작성 시간
+                </td>
+                <td>
+                    {{category.m_update_date|date:"Y-m-d h:s A"}}
+                </td>
+            </tr>
+            <tr>
+                    <td>
+                            작성자
+                        </td>
+                        <td>
+                            {{category.m_WriterName}}({{category.m_WriterID}})
+                        </td>
+            </tr>
+            <tr>
+                <td>
+                    내용
+                </td>
+                <td>
+                    {{category.m_content}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    파일 
+                </td>
+                <td>
+                    {% if category.file_path %}
+                        <a href="{{ category.file_path.url }}" download> {{ category.file_desc}} </a>
+                    {% else %}
+                        파일 없음
+                    {% endif %}
+                </td>
+            </tr>
+    </table>
+    {% endfor %}
+
+{% else %}
+    <p>No Board Contents!!!</p>
+{% endif %}
+
+{% for category in object_list %}
+<form action="{% url 'community:board_message' first_identifier second_identifier category.identifier %}" method="POST">  
+    {% csrf_token %}
+    <input type="submit" value="삭제하기" name= "delete">
+        <a href="{% url 'community:post_modify' first_identifier second_identifier category.identifier %}">수정하기</a>&nbsp;
+        <a href="{% url 'community:board_con' first_identifier second_identifier  %}">목록으로</a>&nbsp;
+    {%endfor%}
+</form>
+
+{% endblock %}

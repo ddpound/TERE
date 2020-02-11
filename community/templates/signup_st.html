@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>회원가입</h1>
+
+<form action="{% url 'community:signup_st' %}", method="POST">  
+  {% csrf_token %}
+    {% for item in form %}
+    <ul>
+      {{item.label}}
+      {{item}}
+    </ul>
+    {% endfor %}
+
+  <input type="submit" value="회원가입">
+  <br>
+  <h1 style="color:red">{{ fail }}</h1>
+</form>
+
+{% endblock %}

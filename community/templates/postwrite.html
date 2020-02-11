@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>게시글 작성</h1>
+<form method="POST" enctype="multipart/form-data" action="{% url 'community:post_write' first_identifier second_identifier %}" novalidate >  
+  {% csrf_token %}
+  제목 : {{ form.m_title }}
+  </br>
+  <br>
+  내용 : {{ form.m_content }}
+  <br><br>
+  파일 설명: {{ fform.desc}} {{ fform.file}}
+  <br>
+  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" value="작성">
+  <br>
+</form>
+{% endblock %}
